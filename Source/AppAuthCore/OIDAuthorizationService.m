@@ -151,8 +151,8 @@ NS_ASSUME_NONNULL_BEGIN
     response = [[OIDAuthorizationResponse alloc] initWithRequest:_request
                                                       parameters:query.dictionaryValue];
       
-    // verifies that the state in the response matches the state in the request, or both are nil
-    if (!OIDIsEqualIncludingNil(_request.state, response.state)) {
+    // If state is provided in the request, verifies that the state in the response matches the state in the request
+    if (_request.state != nil && !OIDIsEqualIncludingNil(_request.state, response.state)) {
       NSMutableDictionary *userInfo = [query.dictionaryValue mutableCopy];
       userInfo[NSLocalizedDescriptionKey] =
         [NSString stringWithFormat:@"State mismatch, expecting %@ but got %@ in authorization "
@@ -272,8 +272,8 @@ NS_ASSUME_NONNULL_BEGIN
   response = [[OIDEndSessionResponse alloc] initWithRequest:_request
                                                  parameters:query.dictionaryValue];
   
-  // verifies that the state in the response matches the state in the request, or both are nil
-  if (!OIDIsEqualIncludingNil(_request.state, response.state)) {
+  // If state is provided in the request, verifies that the state in the response matches the state in the request
+  if (_request.state != nil && !OIDIsEqualIncludingNil(_request.state, response.state)) {
     NSMutableDictionary *userInfo = [query.dictionaryValue mutableCopy];
     userInfo[NSLocalizedDescriptionKey] =
     [NSString stringWithFormat:@"State mismatch, expecting %@ but got %@ in authorization "
